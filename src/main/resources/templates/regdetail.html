@@ -1,0 +1,58 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<body>
+<a href="/">Uue visiidi registreerimine</a>
+<a href="/findreg">Vaata registreeringuid</a>
+<div>
+    <form action="/regdetail.html" th:action="@{/regdetail}" th:object="${dentistVisitDTO}" method="post">
+        <h2>Teie registreering</h2>
+        <table>
+            <tr>
+                <td><p th:text="#{perearsti.nimi}">perearsti.nimi</p></td>
+                <td>
+                    <select id="gpName" name="gpName">
+                        <option value=""> -- Valige perearst -- </option>
+                        <option value="Mare Saar" th:field="*{gpName}">Mare Saare</option>
+                        <option value="Tarmo Mets" th:field="*{gpName}">Tarmo Mets</option>
+                        <option value="Liis Laar" th:field="*{gpName}">Liis Laar</option>
+                        <option value="Indrek Siir" th:field="*{gpName}">Indrek Siir</option>
+                    </select>
+                </td>
+                <td th:if="${#fields.hasErrors('gpName')}" th:errors="*{gpName}">Nime viga</td>
+            </tr>
+            <tr>
+            <td><p th:text="#{arsti.nimi}">arsti.nimi</p></td>
+                <td><input type="text" th:field="*{dentistName}"/></td>
+                <td th:if="${#fields.hasErrors('dentistName')}" th:errors="*{dentistName}">Nime viga</td>
+            </tr>
+            <tr>
+                <td><p th:text="#{visiidi.kuupaev}">visiidi.kuupaev</p></td>
+                <td><input type="datetime-local"
+                           step="3600"
+                           name="visittime"
+                           th:field="*{visitTime}"/>
+                </td>
+                <td th:if="${#fields.hasErrors('visitTime')}" th:errors="*{visitTime}">Kuupäeva viga</td>
+                <td th:if="${exists}" th:text="#{bron.error}">Bron olemas</td>
+                <td th:if="${dateerr}" th:text="#{kuupaev.error}">Kuupäev vale</td>
+                <td th:if="${success}" th:text="#{bron.success}">Bron õnnestus</td>
+            </tr>
+            <tr>
+                <td><input type="hidden"
+                           id="id"
+                           name="id"
+                           th:value="${result.id}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="submit" name="action" value="delete" th:text="#{kustuta.visiit}"></button>
+                </td>
+                <td>
+                    <button type="submit" name="action" value="update" th:text="#{uuenda.visiiti}"></button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>

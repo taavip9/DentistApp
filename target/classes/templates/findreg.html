@@ -1,0 +1,72 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<body>
+<a href="/">Uue visiidi registreerimine</a>
+<table>
+    <tr>
+        <td>
+            <div>
+                <h2>Teie Registreeringud</h2>
+                <table th:if="${not #lists.isEmpty(regs)}">
+                    <tr>
+                        <th>Perearsti nimi</th>
+                        <th>Hambaarsti nimi</th>
+                        <th>Visiidi aeg</th>
+                    </tr>
+                    <tr th:each="reg : ${regs}">
+                        <td th:text="${reg.gpName}"></td>
+                        <td th:text="${reg.dentistName}"></td>
+                        <td th:text="${reg.visitTime}"></td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div>
+                <h2>Otsi registreeringut</h2>
+                <form action="/findreg.html" th:action="@{/findreg}"  method="post">
+                    <table>
+                        <tr>
+                            <td><p th:text="#{otsing.lahter}">otsing.lahter</p></td>
+                            <td><input type="text" id="dentistName" name="dentistName"/></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button type="submit" th:text="#{otsi.visiiti}"></button>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+                <table>
+                    <tr>
+                        <h2>Leitud registreeringud</h2>
+                    </tr>
+                    <div th:if="${not #lists.isEmpty(results)}">
+                        <tr>
+                            <th>Hambaarsti nimi</th>
+                            <th>Visiidi aeg</th>
+                        </tr>
+                        <tr th:each="result : ${results}">
+                            <td>
+                                <a th:href="@{'~/regdetail?id='+${result.id}}"
+                                   th:text="${result.dentistName}"></a>
+                            </td>
+                            <td>
+                                <a th:href="@{'~/regdetail?id='+${result.id}}"
+                                   th:text="${result.visitTime}"></a>
+                            </td>
+                        </tr>
+                    </div>
+                    <div th:if="${#lists.isEmpty(results)}">
+                        <tr>
+                            <td>Registreeringuid ei leitud</td>
+                        </tr>
+                    </div>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

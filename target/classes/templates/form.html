@@ -1,0 +1,41 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<body>
+<a href="/findreg">Vaata registreeringuid</a>
+<form action="#" th:action="@{/}" th:object="${dentistVisitDTO}" method="post">
+    <table>
+        <tr>
+            <td><p th:text="#{perearsti.nimi}">perearsti.nimi</p></td>
+            <td><select id="gpName" name="gpName">
+                <option value=""> -- Valige perearst -- </option>
+                <option value="Mare Saar" th:field="*{gpName}">Mare Saare</option>
+                <option value="Tarmo Mets" th:field="*{gpName}">Tarmo Mets</option>
+                <option value="Liis Laar" th:field="*{gpName}">Liis Laar</option>
+                <option value="Indrek Siir" th:field="*{gpName}">Indrek Siir</option>
+                </select>
+            </td>
+            <td th:if="${#fields.hasErrors('gpName')}" th:errors="*{gpName}">Nime viga</td>
+        </tr>
+        <tr>
+            <td><p th:text="#{arsti.nimi}">arsti.nimi</p></td>
+            <td><input type="text" th:field="*{dentistName}"/></td>
+            <td th:if="${#fields.hasErrors('dentistName')}" th:errors="*{dentistName}">Nime viga</td>
+        </tr>
+        <tr>
+            <td><p th:text="#{visiidi.kuupaev}">visiidi.kuupaev</p></td>
+            <td><input type="datetime-local"
+                       step="3600"
+                       name="visittime"
+                       th:field="*{visitTime}"/></td>
+            <td th:if="${#fields.hasErrors('visitTime')}" th:errors="*{visitTime}">Kuupäeva viga</td>
+            <td th:if="${error}" th:text="#{kuupaev.error}">Kuupäev vale</td>
+            <td th:if="${exists}" th:text="#{bron.error}">Bron olemas</td>
+        </tr>
+        <tr>
+            <td>
+                <button type="submit" th:text="#{registreeri.visiidile}"></button>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
