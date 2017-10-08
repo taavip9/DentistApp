@@ -1,3 +1,3 @@
 # DentistApp
 
-This is an app to make a dentist's appointment.
+This is an app to make, edit and delete dentist's appointments.
